@@ -17,18 +17,6 @@ import fitaLuxuosaSm from "../assets/jewels/fita-luxuosa-sm.webp";
 import campanhaCoracao from "../assets/jewels/campanha-coracao.webp";
 import campanhaCoracaoSm from "../assets/jewels/campanha-coracao-sm.webp";
 import campanhaDetalhe from "../assets/jewels/campanha-detalhe.webp";
-import cenaEsmeraldaWide from "../assets/jewels/cena-esmeralda-wide.webp";
-import cenaEsmeraldaTall from "../assets/jewels/cena-esmeralda-tall.webp";
-import cenaSafiraWide from "../assets/jewels/cena-safira-wide.webp";
-import cenaSafiraTall from "../assets/jewels/cena-safira-tall.webp";
-import cenaAmetistaWide from "../assets/jewels/cena-ametista-wide.webp";
-import cenaAmetistaTall from "../assets/jewels/cena-ametista-tall.webp";
-import cenaEsmeralda from "../assets/jewels/cena-esmeralda.webp";
-import cenaEsmeraldaSm from "../assets/jewels/cena-esmeralda-sm.webp";
-import cenaSafira from "../assets/jewels/cena-safira.webp";
-import cenaSafiraSm from "../assets/jewels/cena-safira-sm.webp";
-import cenaAmetista from "../assets/jewels/cena-ametista.webp";
-import cenaAmetistaSm from "../assets/jewels/cena-ametista-sm.webp";
 
 export type JewelAsset = {
   src: string;
@@ -78,44 +66,6 @@ export const ribbon = {
   width: 1651,
   height: 754,
 } as const;
-
-/** Full photographs with the jewel already staged on its background. */
-export const scenes = {
-  esmeralda: {
-    src: cenaEsmeralda,
-    srcSm: cenaEsmeraldaSm,
-    width: 1214,
-    height: 1295,
-    alt: "Anel de esmeralda em ouro sobre fundo verde escuro, refletido na superfície",
-  },
-  safira: {
-    src: cenaSafira,
-    srcSm: cenaSafiraSm,
-    width: 1145,
-    height: 1374,
-    alt: "Colar com pingente de safira em gota sobre fundo azul noturno",
-  },
-  ametista: {
-    src: cenaAmetista,
-    srcSm: cenaAmetistaSm,
-    width: 1254,
-    height: 1254,
-    alt: "Pulseira de ametistas em ouro sobre pedra clara iluminada pela luz da tarde",
-  },
-} satisfies Record<string, JewelAsset>;
-
-export type SceneKey = keyof typeof scenes;
-
-/**
- * The same scenes pre-baked to full-frame 16:9 (desktop) and 9:16 (phones) by
- * `scripts/extend_scene.py`, so the scroll carousel paints one plain image per
- * layer instead of blurring and masking live.
- */
-export const sceneFrames: Record<SceneKey, { wide: string; tall: string }> = {
-  esmeralda: { wide: cenaEsmeraldaWide, tall: cenaEsmeraldaTall },
-  safira: { wide: cenaSafiraWide, tall: cenaSafiraTall },
-  ametista: { wide: cenaAmetistaWide, tall: cenaAmetistaTall },
-};
 
 /** Campaign photography: the heart necklace resting on satin, plus a close-up crop. */
 export const campaign = {

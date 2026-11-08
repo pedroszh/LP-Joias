@@ -9,7 +9,6 @@ import { Campaign } from "./sections/Campaign";
 import { Collections } from "./sections/Collections";
 import { Film } from "./sections/Film";
 import { Footer } from "./sections/Footer";
-import { GemStories } from "./sections/GemStories";
 import { Hero } from "./sections/Hero";
 import { Intro } from "./sections/Intro";
 import { NewArrivals } from "./sections/NewArrivals";
@@ -29,10 +28,9 @@ export default function App() {
         <main id="conteudo">
           <Hero />
           <Intro />
-          <GemStories />
+          <Film />
           <Collections />
           <Shop />
-          <Film />
           <Campaign />
           <NewArrivals />
           <About />
