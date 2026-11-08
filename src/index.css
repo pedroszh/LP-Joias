@@ -11,10 +11,10 @@
   --color-mist: #7d776e;
   --color-mist-light: #b5aea3;
 
-  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
-  /* hero typography: clean geometric sans with light/bold contrast */
-  --font-modern: "Montserrat", "Manrope", system-ui, sans-serif;
+  /* Bodoni for display (fashion-editorial contrast), Instrument Sans for text */
+  --font-serif: "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --font-sans: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --font-modern: "Instrument Sans", system-ui, sans-serif;
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -45,10 +45,10 @@
 @layer components {
   /* small caps label used across sections */
   .eyebrow {
-    @apply font-sans text-[0.68rem] font-semibold uppercase tracking-[0.32em];
+    @apply font-sans text-[0.7rem] font-medium uppercase tracking-[0.18em];
   }
   .display {
-    @apply font-serif font-light leading-[0.92] tracking-[-0.02em];
+    @apply font-serif font-normal leading-[1] tracking-[-0.025em];
   }
   .outline-numeral {
     color: transparent;

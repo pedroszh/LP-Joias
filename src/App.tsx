@@ -7,6 +7,7 @@ import { StoreProvider } from "./context/StoreContext";
 import { About } from "./sections/About";
 import { Campaign } from "./sections/Campaign";
 import { Collections } from "./sections/Collections";
+import { Film } from "./sections/Film";
 import { Footer } from "./sections/Footer";
 import { GemStories } from "./sections/GemStories";
 import { Hero } from "./sections/Hero";
@@ -31,6 +32,7 @@ export default function App() {
           <GemStories />
           <Collections />
           <Shop />
+          <Film />
           <Campaign />
           <NewArrivals />
           <About />
