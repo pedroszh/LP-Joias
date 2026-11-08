@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #111111;
+  --color-ink-soft: #1a1917;
+  --color-champagne: #c6a66b;
+  --color-champagne-light: #e2cfa4;
+  --color-champagne-deep: #9c7f47;
+  --color-ivory: #f8f5f0;
+  --color-sand: #efe9df;
+  --color-mist: #7d776e;
+  --color-mist-light: #b5aea3;
+
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
+  /* hero typography: clean geometric sans with light/bold contrast */
+  --font-modern: "Montserrat", "Manrope", system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-ivory text-ink font-sans antialiased;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-champagne);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 1.5px solid var(--color-champagne);
+    outline-offset: 3px;
+  }
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+@layer components {
+  /* small caps label used across sections */
+  .eyebrow {
+    @apply font-sans text-[0.68rem] font-semibold uppercase tracking-[0.32em];
+  }
+  .display {
+    @apply font-serif font-light leading-[0.92] tracking-[-0.02em];
+  }
+  .outline-numeral {
+    color: transparent;
+    -webkit-text-stroke: 1px currentColor;
+  }
+  .container-luxe {
+    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-14;
+  }
+  .btn-luxe {
+    @apply relative inline-flex min-h-12 items-center justify-center gap-3 overflow-hidden px-7 text-[0.72rem] font-semibold uppercase tracking-[0.26em] transition-colors duration-500;
+  }
+  .link-underline {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.5s var(--ease-luxe);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* grain to give flat gradients a photographic texture */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes glint {
+  0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(45deg); }
+}
+@keyframes float-soft {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -14px, 0); }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50% { transform: rotate(1.4deg); }
+}
+@keyframes sheen {
+  0% { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(220%) skewX(-18deg); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3%, -2%, 0) scale(1.05); }
+}
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes rise {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 0.8; }
+  100% { transform: translate3d(12px, -160px, 0); opacity: 0; }
+}
+@keyframes ribbon {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(-10px, -12px, 0) rotate(-0.8deg); }
+  66% { transform: translate3d(8px, 6px, 0) rotate(0.6deg); }
+}
+@keyframes sheen-slow {
+  0%, 20% { transform: translateX(-120%); }
+  70%, 100% { transform: translateX(420%); }
+}
+
+.animate-glint { animation: glint 3.6s ease-in-out infinite; }
+.animate-rise { animation: rise 12s linear infinite; }
+.animate-ribbon { animation: ribbon 14s ease-in-out infinite; }
+.animate-sheen-slow { animation: sheen-slow 7s ease-in-out infinite; }
+.animate-float-soft { animation: float-soft 7s ease-in-out infinite; }
+.animate-sway { animation: sway 9s ease-in-out infinite; transform-origin: 50% 0; }
+.animate-drift { animation: drift 16s ease-in-out infinite; }
+.animate-scroll-cue { animation: scroll-cue 2.4s var(--ease-luxe) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-glint,
+  .animate-float-soft,
+  .animate-sway,
+  .animate-drift,
+  .animate-scroll-cue,
+  .animate-rise,
+  .animate-ribbon,
+  .animate-sheen-slow {
+    animation: none !important;
+  }
+  .animate-glint { opacity: 0.6; }
+}
