@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
-import { Pause, Play } from "lucide-react";
 import { Reveal, RevealLines } from "../components/Reveal";
 import filmWide from "../assets/video/filme-lumiere.mp4";
 import filmTall from "../assets/video/filme-lumiere-vertical.mp4";
@@ -9,15 +8,14 @@ import posterTall from "../assets/video/filme-lumiere-vertical-poster.webp";
 
 /**
  * Full-screen brand film (silent loop rendered by `scripts/brand_film.py`).
- * Plays only while on screen, picks the portrait cut on tall screens, and can be
- * paused; with reduced motion it waits on its poster until the visitor presses play.
+ * Plays only while on screen and picks the portrait cut on tall screens; with
+ * reduced motion it stays on its poster frame.
  */
 export function Film() {
   const ref = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
   const [portrait, setPortrait] = useState(false);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-aspect-ratio: 4/5)");
@@ -27,37 +25,21 @@ export function Film() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  useEffect(() => {
-    if (reduce) setPaused(true);
-  }, [reduce]);
-
-  // play only while visible (and not paused by the visitor)
+  // play only while visible
   useEffect(() => {
     const el = ref.current;
     const video = videoRef.current;
     if (!el || !video) return;
     const io = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !paused) video.play().catch(() => setPaused(true));
+        if (entry.isIntersecting && !reduce) video.play().catch(() => undefined);
         else video.pause();
       },
       { threshold: 0.25 },
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [paused, portrait]);
-
-  const toggle = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (paused) {
-      video.play().catch(() => undefined);
-      setPaused(false);
-    } else {
-      video.pause();
-      setPaused(true);
-    }
-  };
+  }, [reduce, portrait]);
 
   return (
     <section ref={ref} aria-labelledby="film-title" className="relative h-[100svh] min-h-[560px] overflow-hidden bg-ink text-ivory">
@@ -67,6 +49,7 @@ export function Film() {
         className="absolute inset-0 h-full w-full object-cover"
         src={portrait ? filmTall : filmWide}
         poster={portrait ? posterTall : posterWide}
+        autoPlay={!reduce}
         muted
         loop
         playsInline
@@ -86,21 +69,11 @@ export function Film() {
         <span id="film-title" className="sr-only">
           Lumière, o filme: feito para ser visto de perto
         </span>
-        <div className="mt-8 flex items-center justify-between gap-6">
-          <Reveal delay={0.2}>
-            <p className="max-w-md text-[0.98rem] leading-relaxed text-ivory/75">
-              Esmeralda, safira, ametista e ouro — a coleção em movimento.
-            </p>
-          </Reveal>
-          <button
-            type="button"
-            onClick={toggle}
-            aria-label={paused ? "Reproduzir o filme" : "Pausar o filme"}
-            className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-ivory/40 transition hover:bg-ivory hover:text-ink"
-          >
-            {paused ? <Play size={16} strokeWidth={1.6} /> : <Pause size={16} strokeWidth={1.6} />}
-          </button>
-        </div>
+        <Reveal delay={0.2} className="mt-8">
+          <p className="max-w-md text-[0.98rem] leading-relaxed text-ivory/75">
+            Esmeralda, safira, ametista e ouro — a coleção em movimento.
+          </p>
+        </Reveal>
       </div>
     </section>
   );
